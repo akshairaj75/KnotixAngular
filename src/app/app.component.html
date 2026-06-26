@@ -1,0 +1,38 @@
+<header class="app-header">
+  <div class="header-container">
+    <a routerLink="/" class="logo">
+      <span class="logo-icon">✨</span>
+      <span class="logo-text">AURA JEWELS</span>
+    </a>
+    <nav class="main-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Catalog</a>
+    </nav>
+  </div>
+</header>
+
+<main class="app-main">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="app-footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h3>AURA JEWELS</h3>
+      <p>Crafting timeless elegance and premium luxury jewelry for your most cherished moments.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a routerLink="/">Catalog</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>Email: concierge&#64;aurajewels.com</p>
+      <p>Phone: 1-800-AURA-JEWEL</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Aura Jewels. All rights reserved. Elegant designs by Antigravity.</p>
+  </div>
+</footer>

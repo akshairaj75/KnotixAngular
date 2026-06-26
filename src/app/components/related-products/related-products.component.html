@@ -1,0 +1,29 @@
+@if (isLoading()) {
+  <div class="loading-related">
+    <div class="mini-spinner"></div>
+  </div>
+}
+
+@if (!isLoading() && filteredRelatedProducts().length > 0) {
+  <div class="related-products-section">
+    <h2 class="section-title">Related Masterpieces</h2>
+    
+    <div class="related-list">
+      @for (prod of filteredRelatedProducts(); track prod.id) {
+        <a [routerLink]="['/products', prod.id]" class="related-card-link">
+          <div class="related-card">
+            <div class="related-image-wrapper">
+              <img [src]="prod.image" [alt]="prod.name" class="related-image" loading="lazy" />
+            </div>
+            
+            <div class="related-info">
+              <div class="category-label">{{ prod.category }}</div>
+              <h3 class="related-name">{{ prod.name }}</h3>
+              <div class="related-price">{{ prod.price | currency:'USD':'symbol':'1.2-2' }}</div>
+            </div>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+}

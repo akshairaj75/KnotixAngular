@@ -1,0 +1,31 @@
+<div class="product-card">
+  <div class="card-image-wrapper">
+    <img [src]="product().image" [alt]="product().name" class="product-image" loading="lazy" />
+    <span class="category-badge">{{ product().category }}</span>
+    @if (product().stock <= 3) {
+      <span class="stock-badge urgent">Only {{ product().stock }} left</span>
+    } @else {
+      <span class="stock-badge">In Stock</span>
+    }
+  </div>
+
+  <div class="card-content">
+    <div class="card-header">
+      <h3 class="product-title" [title]="product().name">{{ product().name }}</h3>
+      <div class="product-rating">
+        <span class="star">★</span>
+        <span class="rating-val">{{ product().rating.toFixed(1) }}</span>
+      </div>
+    </div>
+
+    <p class="product-desc">{{ product().description }}</p>
+
+    <div class="card-footer">
+      <div class="product-price">{{ product().price | currency:'USD':'symbol':'1.2-2' }}</div>
+      <a [routerLink]="['/products', product().id]" class="btn btn-details">
+        <span>View Details</span>
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="details-page-container">
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Revealing product details...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (errorMessage()) {
+    <div class="error-container">
+      <p class="error-msg">{{ errorMessage() }}</p>
+      <a routerLink="/" class="btn btn-back-catalog">Back to Catalog</a>
+    </div>
+  }
+
+  <!-- Content State -->
+  @if (!isLoading() && !errorMessage() && product(); as prod) {
+    <!-- Breadcrumb & Back Button -->
+    <div class="navigation-bar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a routerLink="/">Home</a>
+        <span class="separator">/</span>
+        <a [routerLink]="['/']" [queryParams]="{category: prod.category}">{{ prod.category }}</a>
+        <span class="separator">/</span>
+        <span class="current">{{ prod.name }}</span>
+      </nav>
+      <a routerLink="/" class="btn-back">
+        <span class="arrow">&larr;</span> Back to Products
+      </a>
+    </div>
+
+    <!-- Product Layout Grid -->
+    <div class="product-detail-grid">
+      <!-- Media Panel -->
+      <div class="media-panel">
+        <div class="image-zoom-container">
+          <img [src]="prod.image" [alt]="prod.name" class="detail-image" />
+        </div>
+      </div>
+
+      <!-- Specs Panel -->
+      <div class="specs-panel">
+        <span class="category-tag">{{ prod.category }}</span>
+        
+        <h1 class="product-title">{{ prod.name }}</h1>
+
+        <!-- Rating and Stock row -->
+        <div class="info-row">
+          <div class="rating-badge">
+            <span class="stars">
+              @for (star of [1, 2, 3, 4, 5]; track star) {
+                <span class="star" [class.filled]="star <= prod.rating">★</span>
+              }
+            </span>
+            <span class="rating-value">{{ prod.rating.toFixed(1) }}</span>
+          </div>
+
+          <div class="stock-status" [class.low-stock]="prod.stock <= 3">
+            <span class="indicator-dot"></span>
+            @if (prod.stock <= 3) {
+              Only {{ prod.stock }} pieces available!
+            } @else {
+              In Stock ({{ prod.stock }} pieces)
+            }
+          </div>
+        </div>
+
+        <div class="price-tag">
+          {{ prod.price | currency:'USD':'symbol':'1.2-2' }}
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="description-section">
+          <h3>The Story</h3>
+          <p class="description-text">{{ prod.description }}</p>
+        </div>
+
+        <!-- Call to Action Mockups -->
+        <div class="action-section">
+          <button class="btn btn-primary-gold" [disabled]="prod.stock === 0">
+            <span>{{ prod.stock === 0 ? 'Out of Stock' : 'Add to Collection' }}</span>
+          </button>
+          <button class="btn btn-secondary-outline">
+            <span>Request Bespoke Fitting</span>
+          </button>
+        </div>
+
+        <!-- Premium Details Badges -->
+        <div class="specs-badge-grid">
+          <div class="spec-badge">
+            <span class="badge-icon">🚚</span>
+            <span class="badge-text">Complimentary Insured Shipping</span>
+          </div>
+          <div class="spec-badge">
+            <span class="badge-icon">🛡️</span>
+            <span class="badge-text">Authenticity Certificate Included</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="related-section-wrapper">
+      <app-related-products 
+        [category]="prod.category" 
+        [currentProductId]="prod.id">
+      </app-related-products>
+    </div>
+  }
+</div>
