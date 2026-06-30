@@ -273,9 +273,9 @@
 }
 
 .btn-primary-gold {
-  background: var(--color-charcoal, #1a1a1a);
-  color: #ffffff;
-  border: 1px solid var(--color-charcoal, #1a1a1a);
+  background: var(--btn-primary-bg, #1a1a1a);
+  color: var(--btn-primary-text, #ffffff);
+  border: 1px solid var(--btn-primary-bg, #1a1a1a);
   flex: 1;
   min-width: 180px;
 }
@@ -295,8 +295,8 @@
 
 .btn-secondary-outline {
   background: transparent;
-  color: var(--color-charcoal, #1a1a1a);
-  border: 1px solid var(--color-charcoal, #1a1a1a);
+  color: var(--btn-secondary-text, #1a1a1a);
+  border: 1px solid var(--btn-secondary-border, #1a1a1a);
   flex: 1;
   min-width: 180px;
 }

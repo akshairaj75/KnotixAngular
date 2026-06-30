@@ -2,10 +2,18 @@
   <div class="header-container">
     <a routerLink="/" class="logo">
       <span class="logo-icon">✨</span>
-      <span class="logo-text">AURA JEWELS</span>
+      <span class="logo-text">KNOTIX JEWELS</span>
     </a>
     <nav class="main-nav">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Catalog</a>
+      <a routerLink="/register" routerLinkActive="active" class="nav-link">Add Product</a>
+      <button (click)="toggleTheme()" class="theme-toggle" aria-label="Toggle light/dark theme">
+        @if (isDarkMode()) {
+        <span>☀️ Light</span>
+        } @else {
+        <span>🌙 Dark</span>
+        }
+      </button>
     </nav>
   </div>
 </header>
@@ -17,7 +25,7 @@
 <footer class="app-footer">
   <div class="footer-container">
     <div class="footer-brand">
-      <h3>AURA JEWELS</h3>
+      <h3>KNOTIX JEWELS</h3>
       <p>Crafting timeless elegance and premium luxury jewelry for your most cherished moments.</p>
     </div>
     <div class="footer-links">

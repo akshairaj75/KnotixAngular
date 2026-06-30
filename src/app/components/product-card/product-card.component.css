@@ -175,10 +175,10 @@
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
-  background: var(--color-charcoal, #1a1a1a);
-  color: #ffffff;
+  background: var(--btn-primary-bg, #1a1a1a);
+  color: var(--btn-primary-text, #ffffff);
   transition: all 0.3s ease;
-  border: 1px solid var(--color-charcoal, #1a1a1a);
+  border: 1px solid var(--btn-primary-bg, #1a1a1a);
 }
 
 .btn-details:hover {

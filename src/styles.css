@@ -12,6 +12,23 @@
   --color-bg-light: #fbfbf9;
   --color-muted: #6b7280;
   --border-color: #e5e7eb;
+  
+  /* Theme elements background */
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+
+  /* Button Tokens */
+  --btn-primary-bg: #111111;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: #111111;
+  --btn-secondary-border: #111111;
+
+  /* Footer Tokens */
+  --footer-bg: #111111;
+  --footer-text: #888888;
+  --footer-title: #ffffff;
+  --footer-border: #222222;
 
   /* Typography */
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -27,6 +44,33 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
   --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.02);
+}
+
+/* Dark Theme Variables */
+.dark-theme {
+  --color-bg-light: #121212;
+  --color-charcoal: #f3f4f6;
+  --color-charcoal-light: #e5e7eb;
+  --border-color: #2e2e2e;
+  --card-bg: #1a1a1a;
+  --input-bg: #222222;
+  --color-muted: #9ca3af;
+  --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.3);
+  
+  /* Button Token Overrides */
+  --btn-primary-bg: #ffffff;
+  --btn-primary-text: #111111;
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: #ffffff;
+  --btn-secondary-border: #ffffff;
+
+  /* Footer Token Overrides (Stays Dark) */
+  --footer-bg: #0a0a0a;
+  --footer-text: #888888;
+  --footer-title: #ffffff;
+  --footer-border: #1a1a1a;
+  --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.4);
+  --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.5);
 }
 
 /* Global Reset & Base Styles */
@@ -151,10 +195,10 @@ body {
 
 /* Footer Styling */
 .app-footer {
-  background-color: var(--color-charcoal);
-  color: #ffffff;
+  background-color: var(--footer-bg, #111111);
+  color: var(--footer-text, #888888);
   padding: 60px 0 20px 0;
-  border-top: 1px solid #222222;
+  border-top: 1px solid var(--footer-border, #222222);
 }
 
 .footer-container {
@@ -173,7 +217,7 @@ body {
   font-weight: 350;
   letter-spacing: 0.1em;
   margin-bottom: 15px;
-  color: #ffffff;
+  color: var(--footer-title, #ffffff);
 }
 
 .footer-brand p {
@@ -202,18 +246,18 @@ body {
 }
 
 .footer-links a {
-  color: #888888;
+  color: var(--footer-text, #888888);
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s;
 }
 
 .footer-links a:hover {
-  color: #ffffff;
+  color: var(--footer-title, #ffffff);
 }
 
 .footer-contact p {
-  color: #888888;
+  color: var(--footer-text, #888888);
   font-size: 0.9rem;
   margin-bottom: 10px;
 }
@@ -222,7 +266,7 @@ body {
   max-width: var(--container-width);
   margin: 0 auto;
   padding: 20px;
-  border-top: 1px solid #222222;
+  border-top: 1px solid var(--footer-border, #222222);
   text-align: center;
   color: #555555;
   font-size: 0.8rem;
@@ -235,3 +279,32 @@ body {
     gap: 30px;
   }
 }
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: transparent;
+  border: 1px solid #444444;
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: var(--font-body), sans-serif;
+  user-select: none;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-gold-light, #d4af37);
+  color: var(--color-gold-light, #d4af37);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.theme-toggle:focus {
+  outline: none;
+}
+

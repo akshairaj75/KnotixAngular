@@ -62,7 +62,7 @@
   padding: 14px 16px 14px 46px;
   border-radius: 30px;
   border: 1px solid var(--border-color, #eaeaea);
-  background-color: #ffffff;
+  background-color: var(--input-bg, #ffffff);
   font-size: 0.95rem;
   color: var(--color-charcoal, #1a1a1a);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -92,7 +92,7 @@
   padding: 12px 20px;
   border-radius: 30px;
   border: 1px solid var(--border-color, #eaeaea);
-  background-color: #ffffff;
+  background-color: var(--input-bg, #ffffff);
   font-size: 0.9rem;
   color: var(--color-charcoal, #1a1a1a);
   outline: none;
@@ -118,7 +118,7 @@
   padding: 10px 22px;
   border-radius: 30px;
   border: 1px solid var(--border-color, #eaeaea);
-  background-color: #ffffff;
+  background-color: var(--card-bg, #ffffff);
   color: var(--color-charcoal, #1a1a1a);
   font-size: 0.9rem;
   font-weight: 500;

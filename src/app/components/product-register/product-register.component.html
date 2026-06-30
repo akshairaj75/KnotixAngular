@@ -1,0 +1,168 @@
+<div class="register-page-container">
+  
+  <!-- Success Notification -->
+  @if (submitSuccess()) {
+    <div class="toast success-toast">
+      <span class="toast-icon">✨</span>
+      <div class="toast-details">
+        <h4>Product Registered Successfully</h4>
+        <p>Your masterpiece has been added to the catalog. Redirecting to home...</p>
+      </div>
+    </div>
+  }
+
+  <!-- Error Notification -->
+  @if (errorMessage()) {
+    <div class="toast error-toast">
+      <span class="toast-icon">⚠️</span>
+      <div class="toast-details">
+        <h4>Error Registering Product</h4>
+        <p>{{ errorMessage() }}</p>
+      </div>
+    </div>
+  }
+
+  <div class="form-card">
+    <div class="card-header">
+      <h1 class="form-title">Register New Masterpiece</h1>
+      <p class="form-subtitle">Fill in the fields below to add a luxury jewelry item to Knotix Catalog.</p>
+    </div>
+
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="register-form">
+      <div class="form-grid">
+        <!-- Product Name -->
+        <div class="form-group full-width">
+          <label for="name">Product Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name" 
+            placeholder="e.g., Aurelia Diamond Ring"
+            [class.invalid]="f['name'].touched && f['name'].invalid"
+          />
+          @if (f['name'].touched && f['name'].invalid) {
+            <span class="error-feedback">
+              @if (f['name'].errors?.['required']) { Product name is required. }
+              @if (f['name'].errors?.['minlength']) { Name must be at least 3 characters. }
+            </span>
+          }
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select 
+            id="category" 
+            formControlName="category"
+            [class.invalid]="f['category'].touched && f['category'].invalid"
+          >
+            <option value="" disabled selected>Select category...</option>
+            @for (cat of categories; track cat) {
+              <option [value]="cat">{{ cat }}</option>
+            }
+          </select>
+          @if (f['category'].touched && f['category'].invalid) {
+            <span class="error-feedback">Category selection is required.</span>
+          }
+        </div>
+
+        <!-- Price -->
+        <div class="form-group">
+          <label for="price">Price (USD)</label>
+          <input 
+            type="number" 
+            id="price" 
+            formControlName="price" 
+            placeholder="0.00"
+            step="0.01"
+            [class.invalid]="f['price'].touched && f['price'].invalid"
+          />
+          @if (f['price'].touched && f['price'].invalid) {
+            <span class="error-feedback">
+              @if (f['price'].errors?.['required']) { Price is required. }
+              @if (f['price'].errors?.['min']) { Price must be greater than $0.00. }
+            </span>
+          }
+        </div>
+
+        <!-- Stock Quantity -->
+        <div class="form-group">
+          <label for="stock">Stock Quantity</label>
+          <input 
+            type="number" 
+            id="stock" 
+            formControlName="stock" 
+            placeholder="0"
+            [class.invalid]="f['stock'].touched && f['stock'].invalid"
+          />
+          @if (f['stock'].touched && f['stock'].invalid) {
+            <span class="error-feedback">
+              @if (f['stock'].errors?.['required']) { Stock count is required. }
+              @if (f['stock'].errors?.['min']) { Stock cannot be negative. }
+            </span>
+          }
+        </div>
+
+        <!-- Image URL -->
+        <div class="form-group">
+          <label for="image">Image URL</label>
+          <input 
+            type="text" 
+            id="image" 
+            formControlName="image" 
+            placeholder="https://images.unsplash.com/..."
+            [class.invalid]="f['image'].touched && f['image'].invalid"
+          />
+          @if (f['image'].touched && f['image'].invalid) {
+            <span class="error-feedback">
+              @if (f['image'].errors?.['required']) { Product image URL is required. }
+              @if (f['image'].errors?.['pattern']) { Please enter a valid URL (e.g., https://...). }
+            </span>
+          }
+        </div>
+
+        <!-- Description -->
+        <div class="form-group full-width">
+          <label for="description">Full Description</label>
+          <textarea 
+            id="description" 
+            formControlName="description" 
+            rows="5" 
+            placeholder="Describe the craftsmanship, materials, history, and sizing..."
+            [class.invalid]="f['description'].touched && f['description'].invalid"
+          ></textarea>
+          @if (f['description'].touched && f['description'].invalid) {
+            <span class="error-feedback">
+              @if (f['description'].errors?.['required']) { Description details are required. }
+              @if (f['description'].errors?.['minlength']) { Description must be at least 10 characters long. }
+            </span>
+          }
+        </div>
+      </div>
+
+      <!-- Action Panel -->
+      <div class="action-panel">
+        <button 
+          type="button" 
+          routerLink="/" 
+          class="btn btn-cancel" 
+          [disabled]="isLoading()"
+        >
+          Cancel
+        </button>
+        <button 
+          type="submit" 
+          class="btn btn-submit" 
+          [disabled]="isLoading() || submitSuccess()"
+        >
+          @if (isLoading()) {
+            <div class="mini-spinner"></div>
+            <span>Registering...</span>
+          } @else {
+            <span>Register Masterpiece</span>
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -55,7 +55,7 @@
 /* Horizontal Card */
 .related-card {
   display: flex;
-  background: #ffffff;
+  background: var(--card-bg, #ffffff);
   border: 1px solid var(--border-color, #eaeaea);
   border-radius: 12px;
   overflow: hidden;
