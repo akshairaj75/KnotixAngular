@@ -2,10 +2,12 @@
   <div class="header-container">
     <a routerLink="/" class="logo">
       <span class="logo-icon">✨</span>
-      <span class="logo-text">KNOTIX JEWELS</span>
+      <span class="logo-text">KNOTIX CRAFTS</span>
     </a>
     <nav class="main-nav">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Catalog</a>
+      <a routerLink="/about" routerLinkActive="active" class="nav-link">About</a>
+      <a routerLink="/contact" routerLinkActive="active" class="nav-link">Contact</a>
       <a routerLink="/register" routerLinkActive="active" class="nav-link">Add Product</a>
       <button (click)="toggleTheme()" class="theme-toggle" aria-label="Toggle light/dark theme">
         @if (isDarkMode()) {
@@ -32,15 +34,19 @@
       <h4>Navigation</h4>
       <ul>
         <li><a routerLink="/">Catalog</a></li>
+        <li><a routerLink="/about">About Us</a></li>
+        <li><a routerLink="/contact">Contact Us</a></li>
+        <li><a routerLink="/terms-conditions">Terms & Conditions</a></li>
+        <li><a routerLink="/privacy-policy">Privacy Policy</a></li>
       </ul>
     </div>
     <div class="footer-contact">
       <h4>Contact Us</h4>
-      <p>Email: concierge&#64;aurajewels.com</p>
-      <p>Phone: 1-800-AURA-JEWEL</p>
+      <p>Email: {{ contact.email }}</p>
+      <p>Phone: {{ contact.phone }}</p>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2026 Aura Jewels. All rights reserved. Elegant designs by Antigravity.</p>
+    <p>&copy; 2026 KNOTIX Jewels. All rights reserved. Elegant designs by Antigravity.</p>
   </div>
 </footer>

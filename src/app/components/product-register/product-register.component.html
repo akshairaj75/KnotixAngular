@@ -5,8 +5,8 @@
     <div class="toast success-toast">
       <span class="toast-icon">✨</span>
       <div class="toast-details">
-        <h4>Product Registered Successfully</h4>
-        <p>Your masterpiece has been added to the catalog. Redirecting to home...</p>
+        <h4>{{ isEditMode() ? 'Product Updated Successfully' : 'Product Registered Successfully' }}</h4>
+        <p>{{ isEditMode() ? 'Your masterpiece has been updated. Redirecting to product page...' : 'Your masterpiece has been added to the catalog. Redirecting to home...' }}</p>
       </div>
     </div>
   }
@@ -17,7 +17,7 @@
     <div class="toast error-toast">
       <span class="toast-icon">⚠️</span>
       <div class="toast-details">
-        <h4>Error Registering Product</h4>
+        <h4>{{ isEditMode() ? 'Error Updating Product' : 'Error Registering Product' }}</h4>
         <p>{{ errorMessage() }}</p>
       </div>
     </div>
@@ -25,8 +25,8 @@
 
   <div class="form-card">
     <div class="card-header">
-      <h1 class="form-title">Register New Masterpiece</h1>
-      <p class="form-subtitle">Fill in the fields below to add a luxury jewelry item to Knotix Catalog.</p>
+      <h1 class="form-title">{{ isEditMode() ? 'Edit Masterpiece' : 'Register New Masterpiece' }}</h1>
+      <p class="form-subtitle">{{ isEditMode() ? 'Modify the fields below to update this luxury jewelry item in the catalog.' : 'Fill in the fields below to add a luxury jewelry item to Knotix Catalog.' }}</p>
     </div>
 
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="register-form">
@@ -58,8 +58,8 @@
             [class.invalid]="f['category'].touched && f['category'].invalid"
           >
             <option value="" disabled selected>Select category...</option>
-            @for (cat of categories; track cat) {
-              <option [value]="cat">{{ cat }}</option>
+             @for (cat of categories(); track cat.id) {
+              <option [value]="cat.id">{{ cat.name }}</option>
             }
           </select>
           @if (f['category'].touched && f['category'].invalid) {
@@ -158,9 +158,9 @@
         >
           @if (isLoading()) {
             <div class="mini-spinner"></div>
-            <span>Registering...</span>
+            <span>{{ isEditMode() ? 'Updating...' : 'Registering...' }}</span>
           } @else {
-            <span>Register Masterpiece</span>
+            <span>{{ isEditMode() ? 'Update Masterpiece' : 'Register Masterpiece' }}</span>
           }
         </button>
       </div>

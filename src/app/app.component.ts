@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { BUSINESS_CONTACT } from './constants/business-contact';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'KNOTIX';
+  contact = BUSINESS_CONTACT;
   
   // Theme state signal
   isDarkMode = signal<boolean>(false);

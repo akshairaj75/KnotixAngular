@@ -1,0 +1,110 @@
+<div class="contact-page-container">
+  <div class="nav-back">
+    <a routerLink="/" class="back-link">
+      <span class="arrow">←</span> Back to Catalog
+    </a>
+  </div>
+
+  <header class="contact-header">
+    <span class="contact-subtitle">Reach Our Studio</span>
+    <h1 class="page-title">Contact Us</h1>
+    <p class="contact-tagline">Have questions about our handcrafted jewelry or need assistance? Our support team is here to help.</p>
+  </header>
+
+  <div class="contact-content-grid">
+    <!-- Brand & Ownership details -->
+    <div class="detail-card entity-card">
+      <div class="card-icon">👑</div>
+      <div class="card-details">
+        <h2>Brand & Ownership</h2>
+        <div class="detail-item">
+          <span class="detail-label">Brand Name</span>
+          <span class="detail-value text-gold">{{ contact.brandName }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Legal Entity</span>
+          <span class="detail-value">{{ contact.legalEntity }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Owner</span>
+          <span class="detail-value">{{ contact.owner }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Communication details -->
+    <div class="detail-card communication-card">
+      <div class="card-icon">📞</div>
+      <div class="card-details">
+        <h2>Customer Support</h2>
+        <div class="detail-item">
+          <span class="detail-label">Phone Support</span>
+          <a [href]="'tel:' + contact.phoneRaw" class="detail-link">{{ contact.phone }}</a>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Email Support</span>
+          <a [href]="'mailto:' + contact.email" class="detail-link">{{ contact.email }}</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- WhatsApp Chat Details -->
+    <div class="detail-card whatsapp-card">
+      <div class="card-icon">💬</div>
+      <div class="card-details">
+        <h2>Instant Messaging</h2>
+        <p class="card-description">Chat directly with our support executives for immediate assistance regarding products or orders.</p>
+        <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+          <span>Chat on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Grievance Desk -->
+    <div class="detail-card grievance-card">
+      <div class="card-icon">⚖️</div>
+      <div class="card-details">
+        <h2>Grievance Officer</h2>
+        <p class="card-description">For escalation of unresolved complaints or any formal grievance concerns.</p>
+        <div class="detail-item">
+          <span class="detail-label">Grievance Email</span>
+          <a [href]="'mailto:' + contact.grievanceEmail" class="detail-link">{{ contact.grievanceEmail }}</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Address -->
+    <div class="detail-card address-card">
+      <div class="card-icon">📍</div>
+      <div class="card-details">
+        <h2>Business Address</h2>
+        <p class="address-text">
+          {{ contact.address.line1 }}<br>
+          {{ contact.address.line2 }}<br>
+          {{ contact.address.line3 }}<br>
+          {{ contact.address.country }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Support Hours -->
+    <div class="detail-card hours-card">
+      <div class="card-icon">🕒</div>
+      <div class="card-details">
+        <h2>Support Hours</h2>
+        <div class="detail-item">
+          <span class="detail-label">Operating Days</span>
+          <span class="detail-value">{{ contact.supportHours.days }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Timings</span>
+          <span class="detail-value">{{ contact.supportHours.timings }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Sunday</span>
+          <span class="detail-value status-closed">Closed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

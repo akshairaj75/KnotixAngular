@@ -307,6 +307,22 @@
   color: var(--color-gold-dark, #b8860b);
 }
 
+.btn-edit-gold {
+  background: transparent;
+  color: var(--color-gold-dark, #b8860b);
+  border: 1px solid var(--color-gold-dark, #b8860b);
+  flex: 1;
+  min-width: 180px;
+  text-decoration: none;
+}
+
+.btn-edit-gold:hover {
+  background: var(--color-gold-dark, #b8860b);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md, 0 4px 6px rgba(0,0,0,0.1));
+}
+
 /* Spec Badges */
 .specs-badge-grid {
   display: grid;

@@ -308,3 +308,30 @@ body {
   outline: none;
 }
 
+/* Responsiveness for Header */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 15px 0;
+  }
+  .header-container {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  .main-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 4px 6px;
+  }
+  .theme-toggle {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+

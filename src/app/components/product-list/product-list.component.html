@@ -3,7 +3,10 @@
   <section class="catalog-hero">
     <div class="hero-content">
       <h1 class="hero-title">Timeless Luxury Collection</h1>
-      <p class="hero-subtitle">Discover hand-crafted masterpieces designed to elevate your personal style.</p>
+      <p class="hero-subtitle">
+        Discover hand-crafted masterpieces designed to elevate your personal
+        style.
+      </p>
     </div>
   </section>
 
@@ -12,12 +15,12 @@
     <!-- Search Bar -->
     <div class="search-wrapper">
       <span class="search-icon">🔍</span>
-      <input 
-        type="text" 
-        [value]="searchQuery()" 
+      <input
+        type="text"
+        [value]="searchQuery()"
         (input)="onSearchChange($event)"
-        placeholder="Search jewelry, watches..." 
-        aria-label="Search products" 
+        placeholder="Search jewelry, watches..."
+        aria-label="Search products"
         class="search-input"
       />
     </div>
@@ -25,10 +28,10 @@
     <!-- Sorting -->
     <div class="sort-wrapper">
       <label for="sort-select" class="sort-label">Sort By:</label>
-      <select 
-        id="sort-select" 
-        [value]="sortBy()" 
-        (change)="onSortChange($event)" 
+      <select
+        id="sort-select"
+        [value]="sortBy()"
+        (change)="onSortChange($event)"
         class="sort-select"
       >
         <option value="rating">Highest Rated</option>
@@ -41,8 +44,8 @@
   <!-- Category Selection Chips -->
   <div class="category-tabs">
     @for (cat of categories(); track cat) {
-      <button 
-        [class.active]="selectedCategory() === cat" 
+      <button
+        [class.active]="selectedCategory() === cat"
         (click)="setCategory(cat)"
         class="category-chip"
       >
@@ -79,8 +82,14 @@
         <div class="empty-state">
           <span class="empty-icon">💍</span>
           <h3>No products found</h3>
-          <p>We couldn't find any pieces matching your current search or filter criteria.</p>
-          <button (click)="searchQuery.set(''); selectedCategory.set('All')" class="btn btn-reset">
+          <p>
+            We couldn't find any pieces matching your current search or filter
+            criteria.
+          </p>
+          <button
+            (click)="searchQuery.set(''); selectedCategory.set('All')"
+            class="btn btn-reset"
+          >
             Clear Filters
           </button>
         </div>

@@ -1,0 +1,237 @@
+.terms-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.terms-header {
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 30px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-gold);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  margin-bottom: 25px;
+}
+
+.back-link:hover {
+  color: var(--color-charcoal);
+  transform: translateX(-4px);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: var(--color-charcoal);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.last-updated {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.intro-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 30px;
+  margin-bottom: 50px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.intro-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--color-gold);
+}
+
+.intro-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-charcoal-light);
+}
+
+.terms-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.terms-section {
+  display: flex;
+  gap: 30px;
+  position: relative;
+}
+
+.section-num {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--color-gold);
+  min-width: 45px;
+  border-right: 1px solid var(--border-color);
+  height: fit-content;
+  line-height: 1;
+  padding-right: 20px;
+  letter-spacing: 0.05em;
+}
+
+.section-details {
+  flex-grow: 1;
+}
+
+.section-details h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--color-charcoal);
+  margin-bottom: 15px;
+  letter-spacing: 0.02em;
+}
+
+.section-details p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-muted);
+  margin-bottom: 12px;
+}
+
+.styled-list {
+  list-style: none;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.styled-list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.95rem;
+  color: var(--color-charcoal-light);
+  line-height: 1.6;
+}
+
+.styled-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--color-gold);
+  font-weight: bold;
+}
+
+.contact-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.contact-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.contact-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.contact-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+.contact-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  text-decoration: none;
+  transition: color 0.2s;
+  word-break: break-all;
+}
+
+.contact-value:hover {
+  color: var(--color-gold);
+}
+
+.contact-value-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-charcoal);
+}
+
+/* Responsiveness */
+@media (max-width: 640px) {
+  .terms-container {
+    padding: 40px 15px;
+  }
+  .page-title {
+    font-size: 2.2rem;
+  }
+  .terms-section {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .section-num {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    width: fit-content;
+    padding-right: 0;
+    padding-bottom: 8px;
+    margin-bottom: 5px;
+  }
+  .contact-info-grid {
+    grid-template-columns: 1fr;
+  }
+}

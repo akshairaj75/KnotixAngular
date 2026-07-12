@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 
 @Component({
@@ -15,14 +15,17 @@ export class ProductRegisterComponent implements OnInit {
   isLoading = signal<boolean>(false);
   submitSuccess = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
+  isEditMode = signal<boolean>(false);
+  productId = signal<number | null>(null);
 
-  // Categories list corresponding to mock items
-  categories = ['Rings', 'Necklaces', 'Bracelets', 'Earrings', 'Watches'];
+  // Categories list populated dynamically
+  categories = signal<{id: number, name: string}[]>([]);
 
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +39,59 @@ export class ProductRegisterComponent implements OnInit {
         Validators.pattern(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/)
       ]],
       stock: [0, [Validators.required, Validators.min(0)]]
+    });
+
+    this.loadCategories();
+    this.checkEditMode();
+  }
+
+  private checkEditMode(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      const id = Number(idParam);
+      if (!isNaN(id)) {
+        this.isEditMode.set(true);
+        this.productId.set(id);
+        this.loadProductForEdit(id);
+      }
+    }
+  }
+
+  private loadProductForEdit(id: number): void {
+    this.isLoading.set(true);
+    this.productService.getProductById(id).subscribe({
+      next: (prod) => {
+        this.isLoading.set(false);
+        if (prod) {
+          this.productForm.patchValue({
+            name: prod.name,
+            category: prod.categoryId || '',
+            price: prod.price,
+            description: prod.description,
+            image: prod.image,
+            stock: prod.stock
+          });
+        } else {
+          this.errorMessage.set('Product not found.');
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching product for edit', err);
+        this.errorMessage.set('Failed to load product details.');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  private loadCategories(): void {
+    this.productService.getCategories().subscribe({
+      next: (data) => {
+        this.categories.set(data);
+      },
+      error: (err) => {
+        console.error('Error loading categories', err);
+        this.errorMessage.set('Failed to load categories. Please check your connection.');
+      }
     });
   }
 
@@ -55,21 +111,43 @@ export class ProductRegisterComponent implements OnInit {
 
     const formData = this.productForm.value;
 
-    this.productService.createProduct(formData).subscribe({
-      next: () => {
-        this.isLoading.set(false);
-        this.submitSuccess.set(true);
-        
-        // Wait 1.5s so that the premium success notification is fully visible to the user
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 1500);
-      },
-      error: (err) => {
-        console.error('Error creating product', err);
-        this.errorMessage.set('Failed to register the product. Please check the network connectivity.');
-        this.isLoading.set(false);
+    if (this.isEditMode()) {
+      const id = this.productId();
+      if (id !== null) {
+        this.productService.updateProduct(id, formData).subscribe({
+          next: () => {
+            this.isLoading.set(false);
+            this.submitSuccess.set(true);
+            
+            // Wait 1.5s so that the premium success notification is fully visible to the user
+            setTimeout(() => {
+              this.router.navigate(['/products', id]);
+            }, 1500);
+          },
+          error: (err) => {
+            console.error('Error updating product', err);
+            this.errorMessage.set('Failed to update the product. Please check the network connectivity.');
+            this.isLoading.set(false);
+          }
+        });
       }
-    });
+    } else {
+      this.productService.createProduct(formData).subscribe({
+        next: () => {
+          this.isLoading.set(false);
+          this.submitSuccess.set(true);
+          
+          // Wait 1.5s so that the premium success notification is fully visible to the user
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 1500);
+        },
+        error: (err) => {
+          console.error('Error creating product', err);
+          this.errorMessage.set('Failed to register the product. Please check the network connectivity.');
+          this.isLoading.set(false);
+        }
+      });
+    }
   }
 }
