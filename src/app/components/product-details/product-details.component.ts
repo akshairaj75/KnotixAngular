@@ -64,7 +64,12 @@ export class ProductDetailsComponent implements OnInit {
   getWhatsAppOrderLink(product: Product): string {
     const baseUrl = window.location.origin;
     const productUrl = `${baseUrl}/products/${product.id}`;
-    const imageText = product.image ? `\nImage Link: ${product.image}` : '';
+    let imageLink = product.image;
+    if (imageLink && !imageLink.startsWith('http://') && !imageLink.startsWith('https://')) {
+      const separator = imageLink.startsWith('/') ? '' : '/';
+      imageLink = `${baseUrl}${separator}${imageLink}`;
+    }
+    const imageText = imageLink ? `\nImage Link: ${imageLink}` : '';
     const text = `Hello Knotix Crafts, I would like to order the product: "${product.name}" (Price: $${product.price}).\nProduct Details: ${productUrl}${imageText}\n\nPlease let me know how to proceed. Thank you!`;
     return `https://wa.me/${BUSINESS_CONTACT.phoneRaw.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(text)}`;
   }

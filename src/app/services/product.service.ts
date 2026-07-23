@@ -13,14 +13,12 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  private getBaseServerUrl(): string {
-    return environment.apiUrl.replace('/api', '');
-  }
-
   private mapToProduct(dto: any): Product {
     let imageUrl = dto.images && dto.images.length > 0 ? dto.images[0].imageUrl : '';
     if (imageUrl && !imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      imageUrl = `${this.getBaseServerUrl()}/${imageUrl}`;
+      const apiPrefix = environment.apiUrl.endsWith('/') ? environment.apiUrl.slice(0, -1) : environment.apiUrl;
+      const pathSuffix = imageUrl.startsWith('/') ? imageUrl.slice(1) : imageUrl;
+      imageUrl = `${apiPrefix}/${pathSuffix}`;
     }
     return {
       id: dto.id,

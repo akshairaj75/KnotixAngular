@@ -16,7 +16,12 @@ export class ProductCardComponent {
   getWhatsAppOrderLink(): string {
     const baseUrl = window.location.origin;
     const productUrl = `${baseUrl}/products/${this.product().id}`;
-    const imageText = this.product().image ? `\nImage Link: ${this.product().image}` : '';
+    let imageLink = this.product().image;
+    if (imageLink && !imageLink.startsWith('http://') && !imageLink.startsWith('https://')) {
+      const separator = imageLink.startsWith('/') ? '' : '/';
+      imageLink = `${baseUrl}${separator}${imageLink}`;
+    }
+    const imageText = imageLink ? `\nImage Link: ${imageLink}` : '';
     const text = `Hello Knotix Crafts, I would like to order the product: "${this.product().name}" (Price: $${this.product().price}).\nProduct Details: ${productUrl}${imageText}\n\nPlease let me know how to proceed. Thank you!`;
     return `https://wa.me/${BUSINESS_CONTACT.phoneRaw.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(text)}`;
   }
