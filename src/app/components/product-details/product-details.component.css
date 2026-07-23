@@ -293,6 +293,29 @@
   cursor: not-allowed;
 }
 
+.btn-whatsapp-order {
+  background: #25d366;
+  color: #ffffff;
+  border: 1px solid #25d366;
+  flex: 1;
+  min-width: 180px;
+  text-decoration: none;
+}
+
+.btn-whatsapp-order:hover {
+  background: #20ba5a;
+  border-color: #20ba5a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(37, 211, 102, 0.25);
+}
+
+.whatsapp-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
 .btn-secondary-outline {
   background: transparent;
   color: var(--btn-secondary-text, #1a1a1a);

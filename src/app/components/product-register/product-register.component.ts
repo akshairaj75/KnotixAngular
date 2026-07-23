@@ -18,6 +18,9 @@ export class ProductRegisterComponent implements OnInit {
   isEditMode = signal<boolean>(false);
   productId = signal<number | null>(null);
 
+  selectedFile: File | null = null;
+  imagePreview: string | null = null;
+
   // Categories list populated dynamically
   categories = signal<{id: number, name: string}[]>([]);
 
@@ -34,10 +37,7 @@ export class ProductRegisterComponent implements OnInit {
       category: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(0.01)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      image: ['', [
-        Validators.required,
-        Validators.pattern(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/)
-      ]],
+      image: ['', []],
       stock: [0, [Validators.required, Validators.min(0)]]
     });
 
@@ -100,7 +100,29 @@ export class ProductRegisterComponent implements OnInit {
     return this.productForm.controls;
   }
 
+  onFileChange(event: any): void {
+    const file = event.target.files?.[0];
+    if (file) {
+      this.selectedFile = file;
+      this.productForm.patchValue({ image: file.name });
+      
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.selectedFile = null;
+      this.imagePreview = null;
+      this.productForm.patchValue({ image: '' });
+    }
+  }
+
   onSubmit(): void {
+    if (!this.isEditMode() && !this.selectedFile) {
+      this.productForm.controls['image'].setErrors({ required: true });
+    }
+
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       return;
@@ -114,7 +136,7 @@ export class ProductRegisterComponent implements OnInit {
     if (this.isEditMode()) {
       const id = this.productId();
       if (id !== null) {
-        this.productService.updateProduct(id, formData).subscribe({
+        this.productService.updateProduct(id, formData, this.selectedFile || undefined).subscribe({
           next: () => {
             this.isLoading.set(false);
             this.submitSuccess.set(true);
@@ -132,7 +154,7 @@ export class ProductRegisterComponent implements OnInit {
         });
       }
     } else {
-      this.productService.createProduct(formData).subscribe({
+      this.productService.createProduct(formData, this.selectedFile || undefined).subscribe({
         next: () => {
           this.isLoading.set(false);
           this.submitSuccess.set(true);

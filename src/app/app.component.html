@@ -8,7 +8,16 @@
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Catalog</a>
       <a routerLink="/about" routerLinkActive="active" class="nav-link">About</a>
       <a routerLink="/contact" routerLinkActive="active" class="nav-link">Contact</a>
+      @if (isAdmin()) {
       <a routerLink="/register" routerLinkActive="active" class="nav-link">Add Product</a>
+      }
+      <button (click)="toggleRole()" class="role-toggle" [attr.aria-label]="'Switch user role'">
+        @if (isAdmin()) {
+        <span>👤 Admin View</span>
+        } @else {
+        <span>👥 Customer View</span>
+        }
+      </button>
       <button (click)="toggleTheme()" class="theme-toggle" aria-label="Toggle light/dark theme">
         @if (isDarkMode()) {
         <span>☀️ Light</span>

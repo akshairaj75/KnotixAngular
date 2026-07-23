@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { Product } from '../../models/product';
+import { BUSINESS_CONTACT } from '../../constants/business-contact';
 
 @Component({
   selector: 'app-product-card',
@@ -11,4 +12,12 @@ import { Product } from '../../models/product';
 })
 export class ProductCardComponent {
   product = input.required<Product>();
+
+  getWhatsAppOrderLink(): string {
+    const baseUrl = window.location.origin;
+    const productUrl = `${baseUrl}/products/${this.product().id}`;
+    const imageText = this.product().image ? `\nImage Link: ${this.product().image}` : '';
+    const text = `Hello Knotix Crafts, I would like to order the product: "${this.product().name}" (Price: $${this.product().price}).\nProduct Details: ${productUrl}${imageText}\n\nPlease let me know how to proceed. Thank you!`;
+    return `https://wa.me/${BUSINESS_CONTACT.phoneRaw.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(text)}`;
+  }
 }

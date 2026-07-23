@@ -4,30 +4,117 @@
   padding: 40px 20px;
 }
 
-/* Catalog Hero */
-.catalog-hero {
+/* Full Width Home Banner */
+.home-banner {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin-bottom: 50px;
-  padding: 40px 20px;
-  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+  color: #ffffff;
+  padding: 100px 20px;
+  box-sizing: border-box;
+  background: radial-gradient(circle at 20% 30%, rgba(197, 168, 128, 0.18) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(197, 168, 128, 0.12) 0%, transparent 60%),
+              linear-gradient(135deg, #0e0e0e 0%, #1a1a18 100%);
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color, #222222);
 }
 
-.hero-title {
-  font-family: var(--font-display, 'Outfit', sans-serif);
-  font-size: 3rem;
-  font-weight: 300;
-  color: var(--color-charcoal, #1a1a1a);
-  letter-spacing: -0.02em;
-  margin-bottom: 15px;
-  text-transform: uppercase;
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
 }
 
-.hero-subtitle {
-  font-size: 1.125rem;
-  color: var(--color-muted, #666666);
-  max-width: 600px;
+.banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
   margin: 0 auto;
-  line-height: 1.6;
+  animation: bannerFadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes bannerFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.banner-badge {
+  display: inline-block;
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--color-gold, #c5a880);
+  margin-bottom: 20px;
+  background: rgba(197, 168, 128, 0.08);
+  border: 1px solid rgba(197, 168, 128, 0.3);
+  padding: 8px 18px;
+  border-radius: 30px;
+}
+
+.banner-title {
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 4.2rem;
+  font-weight: 200;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffffff 0%, #eaeaea 50%, var(--color-gold, #c5a880) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.banner-subtitle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #cccccc;
+  max-width: 600px;
+  margin: 0 auto 35px auto;
+}
+
+.banner-btn {
+  display: inline-block;
+  background-color: var(--color-gold, #c5a880);
+  color: #111111;
+  text-decoration: none;
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 16px 36px;
+  border-radius: 30px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(197, 168, 128, 0.3);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.banner-btn:hover {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
 }
 
 /* Controls Panel */
@@ -236,8 +323,23 @@
 
 /* Responsive Tweaks */
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.2rem;
+  .home-banner {
+    min-height: 400px;
+    padding: 60px 20px;
+  }
+  
+  .banner-title {
+    font-size: 2.6rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.05rem;
+    margin-bottom: 25px;
+  }
+  
+  .banner-btn {
+    padding: 12px 28px;
+    font-size: 0.8rem;
   }
   
   .controls-panel {

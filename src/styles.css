@@ -280,8 +280,9 @@ body {
   }
 }
 
-/* Theme Toggle Button */
-.theme-toggle {
+/* Theme & Role Toggle Buttons */
+.theme-toggle,
+.role-toggle {
   background: transparent;
   border: 1px solid #444444;
   color: #ffffff;
@@ -298,13 +299,15 @@ body {
   user-select: none;
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover,
+.role-toggle:hover {
   border-color: var(--color-gold-light, #d4af37);
   color: var(--color-gold-light, #d4af37);
   background: rgba(255, 255, 255, 0.05);
 }
 
-.theme-toggle:focus {
+.theme-toggle:focus,
+.role-toggle:focus {
   outline: none;
 }
 
@@ -328,7 +331,8 @@ body {
     font-size: 0.85rem;
     padding: 4px 6px;
   }
-  .theme-toggle {
+  .theme-toggle,
+  .role-toggle {
     padding: 6px 12px;
     font-size: 0.8rem;
   }

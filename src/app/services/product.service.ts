@@ -13,7 +13,15 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
+  private getBaseServerUrl(): string {
+    return environment.apiUrl.replace('/api', '');
+  }
+
   private mapToProduct(dto: any): Product {
+    let imageUrl = dto.images && dto.images.length > 0 ? dto.images[0].imageUrl : '';
+    if (imageUrl && !imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+      imageUrl = `${this.getBaseServerUrl()}/${imageUrl}`;
+    }
     return {
       id: dto.id,
       name: dto.name,
@@ -21,7 +29,7 @@ export class ProductService {
       categoryId: dto.categoryId,
       price: dto.basePrice,
       description: dto.description || dto.shortDescription || '',
-      image: dto.images && dto.images.length > 0 ? dto.images[0].imageUrl : '',
+      image: imageUrl,
       rating: 4.5, // Default mock rating
       stock: dto.variants && dto.variants.length > 0
         ? dto.variants.reduce((sum: number, v: any) => sum + (v.stockQuantity || 0), 0)
@@ -59,18 +67,23 @@ export class ProductService {
   /**
    * Create a new product in Spring Boot API
    */
-  createProduct(productData: any): Observable<Product> {
+  createProduct(productData: any, imageFile?: File): Observable<Product> {
+    const formData = new FormData();
     const payload = {
       name: productData.name,
       categoryId: Number(productData.category), // Category ID from registration form
       basePrice: productData.price,
       description: productData.description,
-      imageUrl: productData.image,
       stock: productData.stock,
       status: 'ACTIVE'
     };
 
-    return this.http.post<any>(`${this.apiUrl}/add-products`, payload).pipe(
+    formData.append('product', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+
+    return this.http.post<any>(`${this.apiUrl}/add-products`, formData).pipe(
       map(dto => this.mapToProduct(dto))
     );
   }
@@ -78,18 +91,23 @@ export class ProductService {
   /**
    * Update an existing product in Spring Boot API
    */
-  updateProduct(productId: number, productData: any): Observable<Product> {
+  updateProduct(productId: number, productData: any, imageFile?: File): Observable<Product> {
+    const formData = new FormData();
     const payload = {
       name: productData.name,
       categoryId: Number(productData.category), // Category ID from registration/edit form
       basePrice: productData.price,
       description: productData.description,
-      imageUrl: productData.image,
       stock: productData.stock,
       status: 'ACTIVE'
     };
 
-    return this.http.put<any>(`${this.apiUrl}/update-product/${productId}`, payload).pipe(
+    formData.append('product', new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+
+    return this.http.put<any>(`${this.apiUrl}/update-product/${productId}`, formData).pipe(
       map(dto => this.mapToProduct(dto))
     );
   }

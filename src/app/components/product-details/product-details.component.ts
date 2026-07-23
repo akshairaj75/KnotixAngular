@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import { RelatedProductsComponent } from '../related-products/related-products.component';
+import { BUSINESS_CONTACT } from '../../constants/business-contact';
 
 @Component({
   selector: 'app-product-details',
@@ -58,5 +59,13 @@ export class ProductDetailsComponent implements OnInit {
         this.isLoading.set(false);
       }
     });
+  }
+
+  getWhatsAppOrderLink(product: Product): string {
+    const baseUrl = window.location.origin;
+    const productUrl = `${baseUrl}/products/${product.id}`;
+    const imageText = product.image ? `\nImage Link: ${product.image}` : '';
+    const text = `Hello Knotix Crafts, I would like to order the product: "${product.name}" (Price: $${product.price}).\nProduct Details: ${productUrl}${imageText}\n\nPlease let me know how to proceed. Thank you!`;
+    return `https://wa.me/${BUSINESS_CONTACT.phoneRaw.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(text)}`;
   }
 }

@@ -194,3 +194,36 @@
 .btn-details:hover .arrow {
   transform: translateX(4px);
 }
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #25d366;
+  color: #ffffff;
+  border: 1px solid #25d366;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-whatsapp:hover {
+  background: #20ba5a;
+  border-color: #20ba5a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(37, 211, 102, 0.25);
+}
+
+.btn-whatsapp .whatsapp-icon {
+  width: 18px;
+  height: 18px;
+}

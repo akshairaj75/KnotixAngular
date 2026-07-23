@@ -15,6 +15,9 @@ export class AppComponent implements OnInit {
   // Theme state signal
   isDarkMode = signal<boolean>(false);
 
+  // Role state signal
+  isAdmin = signal<boolean>(false);
+
   ngOnInit(): void {
     // Detect theme preference from localStorage or fallback to system preference
     const savedTheme = localStorage.getItem('theme');
@@ -27,11 +30,36 @@ export class AppComponent implements OnInit {
     }
 
     this.applyTheme();
+
+    // Check initial user role
+    const currentRole = localStorage.getItem('role');
+    const currentToken = localStorage.getItem('token');
+    if (currentRole === 'ADMIN' || currentToken === 'admin-token') {
+      this.isAdmin.set(true);
+    }
   }
 
   toggleTheme(): void {
     this.isDarkMode.update(dark => !dark);
     this.applyTheme();
+  }
+
+  toggleRole(): void {
+    if (this.isAdmin()) {
+      localStorage.setItem('role', 'CUSTOMER');
+      localStorage.removeItem('token');
+      this.isAdmin.set(false);
+      
+      // Redirect to catalog if on admin route
+      const currentPath = window.location.pathname;
+      if (currentPath.includes('register') || currentPath.includes('edit')) {
+        window.location.href = '/';
+      }
+    } else {
+      localStorage.setItem('role', 'ADMIN');
+      localStorage.setItem('token', 'admin-token');
+      this.isAdmin.set(true);
+    }
   }
 
   private applyTheme(): void {
